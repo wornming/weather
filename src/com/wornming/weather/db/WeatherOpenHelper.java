@@ -20,9 +20,9 @@ public class WeatherOpenHelper extends SQLiteOpenHelper {
 			+ "city_name text," + "city_code text," + "province_id integer)";
 
 	/**
-	 * County表创建语句
+	 * Country表创建语句
 	 */
-	public static final String CREATE_COUNTY = "create table County (" + "id integer primary autoincrement,"
+	public static final String CREATE_COUNTRY = "create table Country (" + "id integer primary autoincrement,"
 			+ "country_name text," + "country_code text," + "city_id integer";
 
 	public WeatherOpenHelper(Context context, String name, CursorFactory factory, int version) {
@@ -33,7 +33,7 @@ public class WeatherOpenHelper extends SQLiteOpenHelper {
 	public void onCreate(SQLiteDatabase db) {
 		db.execSQL(CREATE_PROVINCE);
 		db.execSQL(CREATE_CITY);
-		db.execSQL(CREATE_COUNTY);
+		db.execSQL(CREATE_COUNTRY);
 	}
 
 	@Override

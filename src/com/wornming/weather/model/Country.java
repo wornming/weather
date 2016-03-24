@@ -3,7 +3,7 @@ package com.wornming.weather.model;
 /**
  * 创建Country实体类
  */
-public class County {
+public class Country {
 	private int id;
 
 	private String countryName;

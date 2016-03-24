@@ -94,29 +94,67 @@ public class WeatherDB {
 			db.insert("City", null, values);
 		}
 	}
+
 	/**
 	 * 读取市区信息
 	 */
 	public List<City> loadCities(int province_id) {
 		List<City> list = new ArrayList<City>();
-		
-		Cursor cursor = db.query("City", null, "province_id = ?", new String[]{String.valueOf(province_id)}, null, null, null, null);
-		
+
+		Cursor cursor = db.query("City", null, "province_id = ?", new String[] { String.valueOf(province_id) }, null,
+				null, null, null);
+
 		if (cursor.moveToFirst()) {
 			do {
 				City city = new City();
-				
+
 				city.setId(cursor.getInt(cursor.getColumnIndex("id")));
-				
+
 				city.setCityName(cursor.getString(cursor.getColumnIndex("city_name")));
-				
+
 				city.setCityCode(cursor.getString(cursor.getColumnIndex("city_code")));
 				city.setProvinceId(province_id);
-				
+
 				list.add(city);
 			} while (cursor.moveToNext());
-			
+
 		}
 		return list;
+	}
+
+	/**
+	 * 存储县区信息
+	 */
+	public void saveCountry(Country country) {
+		if (country != null) {
+			ContentValues values = new ContentValues();
+
+			values.put("country_name", country.getCountryName());
+			values.put("country_code", country.getCountryCode());
+			values.put("city_id", country.getCityId());
+			db.insert("Country", null, values);
+		}
+	}
+
+	/**
+	 * 读取县区信息
+	 */
+	public List<Country> loadCountries(int city_id) {
+		List<Country> list = new ArrayList<Country>();
+
+		Cursor cursor = db.query("Country", null, "city_id = ?", new String[] { String.valueOf(city_id) }, null, null,
+				null);
+		if (cursor.moveToFirst()) {
+			do {
+				Country country = new Country();
+				country.setId(cursor.getInt(cursor.getColumnIndex("id")));
+				country.setCountryName(cursor.getString(cursor.getColumnIndex("country_name")));
+				country.setCountryName(cursor.getString(cursor.getColumnIndex("country_code")));
+				country.setCityId(city_id);
+				list.add(country);
+			} while (cursor.moveToNext());
+		}
+		return list;
+
 	}
 }
